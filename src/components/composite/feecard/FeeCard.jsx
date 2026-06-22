@@ -6,6 +6,80 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+/*
+======================================================
+Reusable Fee Card Component
+
+Purpose:
+- Displays student fee information in a card format.
+- Shows fee amount, payment status, due date,
+  paid amount, and remaining balance.
+- Provides a "Pay Now" button for unpaid fees.
+- Displays a success message for completed payments.
+
+Props:
+- month          : Fee month or billing period
+- originalAmount : Original fee before discounts
+- amount         : Final payable amount
+- amountPaid     : Amount already paid
+- dueDate        : Payment due date
+- paidDate       : Date payment was completed
+- status         : Paid | Partial | Unpaid
+- onPay          : Function executed when user clicks Pay Now
+- bgColor        : Custom background classes
+- className      : Additional custom classes
+
+Examples:
+
+1. Unpaid Fee
+------------------------------------------------------
+<FeeCard
+  month="June 2026"
+  originalAmount={5000}
+  amount={4500}
+  amountPaid={0}
+  dueDate="30 June 2026"
+  status="Unpaid"
+  onPay={handlePayment}
+/>
+
+------------------------------------------------------
+
+2. Partial Payment
+------------------------------------------------------
+<FeeCard
+  month="May 2026"
+  originalAmount={5000}
+  amount={5000}
+  amountPaid={3000}
+  dueDate="31 May 2026"
+  status="Partial"
+  onPay={handlePayment}
+/>
+
+------------------------------------------------------
+
+3. Paid Fee
+------------------------------------------------------
+<FeeCard
+  month="April 2026"
+  originalAmount={5000}
+  amount={5000}
+  amountPaid={5000}
+  dueDate="30 April 2026"
+  paidDate="25 April 2026"
+  status="Paid"
+/>
+
+Features:
+- Payment status badges
+- Remaining amount calculation
+- Due date and paid date display
+- Payment action button
+- Responsive card design
+======================================================
+*/
+
 function FeeCard({
   month,
   originalAmount,
@@ -18,9 +92,19 @@ function FeeCard({
   bgColor,
   className = "",
 }) {
+  /*
+  ======================================================
+  Calculate remaining balance
+  ======================================================
+  */
   const remaining =
     amount - amountPaid;
 
+  /*
+  ======================================================
+  Status badge styles
+  ======================================================
+  */
   const statusStyles = {
     Paid:
       "bg-success-bg text-success-text",
@@ -42,18 +126,25 @@ function FeeCard({
         ${className}
       `}
     >
-      {/* Header */}
+      {/* ==================================================
+          Card Header
+          Displays month, fee amount,
+          and payment status
+      ================================================== */}
       <div className="flex items-start justify-between">
         <div>
+          {/* Fee Month */}
           <p className="text-sm text-text-secondary">
             {month}
           </p>
 
+          {/* Final Payable Amount */}
           <h3 className="mt-2 text-3xl font-bold text-text-primary">
             Rs. {amount}
           </h3>
         </div>
 
+        {/* Payment Status Badge */}
         <div
           className={`
             rounded-full
@@ -68,8 +159,11 @@ function FeeCard({
         </div>
       </div>
 
-      {/* Fee Information */}
+      {/* ==================================================
+          Fee Details Section
+      ================================================== */}
       <div className="mt-6 space-y-4">
+        {/* Original Fee */}
         <div className="flex items-center justify-between">
           <span className="text-text-secondary">
             Original Fee
@@ -80,6 +174,7 @@ function FeeCard({
           </span>
         </div>
 
+        {/* Amount Paid */}
         <div className="flex items-center justify-between">
           <span className="text-text-secondary">
             Paid
@@ -90,6 +185,7 @@ function FeeCard({
           </span>
         </div>
 
+        {/* Remaining Balance */}
         <div className="flex items-center justify-between">
           <span className="text-text-secondary">
             Remaining
@@ -100,6 +196,7 @@ function FeeCard({
           </span>
         </div>
 
+        {/* Due Date */}
         <div className="flex items-center gap-3 text-text-secondary">
           <CalendarDays size={18} />
 
@@ -108,6 +205,7 @@ function FeeCard({
           </span>
         </div>
 
+        {/* Payment Date */}
         {paidDate && (
           <div className="flex items-center gap-3 text-text-secondary">
             <CheckCircle2 size={18} />
@@ -119,7 +217,10 @@ function FeeCard({
         )}
       </div>
 
-      {/* Footer */}
+      {/* ==================================================
+          Payment Action
+          Shown only if there is remaining balance
+      ================================================== */}
       {remaining > 0 && (
         <button
           onClick={onPay}
@@ -149,6 +250,9 @@ function FeeCard({
         </button>
       )}
 
+      {/* ==================================================
+          Payment Completed State
+      ================================================== */}
       {status === "Paid" && (
         <div
           className="
@@ -161,8 +265,8 @@ function FeeCard({
             bg-success-bg
             px-4
             py-3
-            text-success-text
             font-medium
+            text-success-text
           "
         >
           <CircleDollarSign
