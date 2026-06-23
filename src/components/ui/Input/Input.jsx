@@ -49,11 +49,11 @@ const ICON_POSITION = {
 };
 
 const TONE_FOCUS_RING = {
-  brand: 'focus:ring-brand-primary focus:border-brand-primary',
-  admin: 'focus:ring-admin-primary focus:border-admin-primary',
-  teacher: 'focus:ring-teacher-primary focus:border-teacher-primary',
-  student: 'focus:ring-student-primary focus:border-student-primary',
-  parent: 'focus:ring-parent-primary focus:border-parent-primary',
+  brand: 'focus:ring-brand-border focus:border-brand-primary',
+  admin: 'focus:ring-admin-border focus:border-admin-primary',
+  teacher: 'focus:ring-teacher-border focus:border-teacher-primary',
+  student: 'focus:ring-student-border focus:border-student-primary',
+  parent: 'focus:ring-parent-border focus:border-parent-primary',
 };
 
 const Input = React.forwardRef(function Input(

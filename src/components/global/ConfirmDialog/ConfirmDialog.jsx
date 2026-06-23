@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../layer1/Button';
+import Button from '../../ui/Button/Button';
 
 /**
  * CONFIRM DIALOG

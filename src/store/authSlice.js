@@ -19,12 +19,12 @@ State Properties:
 - error: Stores authentication errors.
 ======================================================
 */
-
+const savedAuth = JSON.parse(localStorage.getItem('auth_user') || 'null');
 // Initial authentication state
 const initialState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
+  user: savedAuth?.user || null,
+  token: savedAuth?.token || null,
+  isAuthenticated: !!savedAuth,
   loading: false,
   error: null,
 };
@@ -60,6 +60,8 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
+        localStorage.setItem('auth_user',
+      JSON.stringify(action.payload)); 
     },
 
     /*
@@ -96,7 +98,14 @@ const authSlice = createSlice({
     - Resets authentication state to initial values
     ======================================================
     */
-    logout: () => initialState,
+    logout: (state) => {
+    state.user = null;
+    state.token = null;
+    state.isAuthenticated = false;
+    state.loading = false;
+    state.error = null;
+    localStorage.removeItem('auth_user'); 
+    },
   },
 });
 

@@ -1,8 +1,13 @@
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Sidebar from "../components/ui/sidebar";
-import Navbar from "../components/global/Navbar";
+import { Navbar, Sidebar } from '../components';
+import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../store/authSlice';
+
+
 
 import {
   adminRoutes,
@@ -74,10 +79,18 @@ function DashboardLayout() {
   }
   ======================================================
   */
+ const [searchQuery, setSearchQuery] = useState('');
   const user = useSelector(
     (state) => state.auth.user
   );
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    dispatch(logout());
+    navigate('/login');
+}
   /*
   ======================================================
   Map each user role to its corresponding
@@ -155,7 +168,20 @@ function DashboardLayout() {
 
             Stays visible while page content changes.
         ================================================ */}
-        <Navbar />
+        <Navbar
+        userName={user?.full_name}
+        userRole={user?.role}
+        tone={user?.role || 'brand'}
+        onLogout={handleLogout}
+      //    logo="School AI"
+      //   notificationCount={3}
+      //   onNotificationClick={() => navigate('/notifications')}
+      //   search={{
+      //   value: searchQuery,
+      //   onChange: (e) => setSearchQuery(e.target.value),
+      //   onSearch: (val) => console.log('search:', val),
+      // }}
+      />
 
         {/* ================================================
             Main Page Content Area
