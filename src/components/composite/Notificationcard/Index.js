@@ -1,1 +1,1 @@
-export { default } from './Notificationcard';
+export { default as Notificationcard} from './Notificationcard';

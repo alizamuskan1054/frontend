@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, Bell, LogOut, ChevronDown } from 'lucide-react';
-import SearchBar from '../SearchBar';
-import Badge from '../../ui/Badge';
+import Searchbar from '../Searchbar/Searchbar';  
+import Badge from '../../ui/Badge/Badge';    
+     
 
 /**
  * NAVBAR
@@ -80,7 +81,7 @@ function Navbar({
 
       {search && (
         <div className="hidden flex-1 max-w-md md:block">
-          <SearchBar tone={tone} {...search} />
+          <Searchbar tone={tone} {...search} />
         </div>
       )}
 

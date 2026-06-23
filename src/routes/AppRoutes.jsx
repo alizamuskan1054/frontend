@@ -3,7 +3,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
+import HomePage from "../modules/public/HomePage";
 // ======================================================
 // Layout Components
 // These layouts provide a shared structure for pages.
@@ -16,6 +16,9 @@ import DashboardLayout from "../layouts/DashboardLayout";
 // Pages accessible without logging in.
 // ======================================================
 import Login from "../modules/auth/pages/Login";
+import Register from "../modules/auth/pages/Register";
+import ForgotPassword from "../modules/auth/pages/ForgotPassword";
+import PendingApproval from "../modules/auth/pages/PendingApproval";
 
 // ======================================================
 // Dashboard Pages
@@ -87,32 +90,13 @@ Examples:
 function AppRoutes() {
   return (
     <Routes>
-      {/* ==================================================
-          Authentication Routes
-
-          Uses AuthLayout which provides:
-          - Centered authentication card
-          - Branding (School AI)
-          - Nested authentication pages
-      ================================================== */}
+      <Route path="/" element={<HomePage />} />
       <Route element={<AuthLayout />}>
         {/* Login Page */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-
-
-        {/* Future auth routes can be added here like
-        <Route
-          path="/register"
-          element={<Register />}
-        />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        
-        */}
+        <Route path="/login" element={<Login />}/>
+        {<Route path="/register" element={<Register />} />}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/pending-approval" element={<PendingApproval />} />
       </Route>
 
       {/* ==================================================

@@ -1,109 +1,47 @@
-import { Outlet } from "react-router-dom";
+/**
+ * AUTH LAYOUT
+ *
+ * Wrapper for all auth pages: Login, Register, ForgotPassword, PendingApproval.
+ *
+ * Background: light navy tint with a subtle dot grid pattern (CSS only, no image).
+ * Card: centered white card, max-w-lg.
+ * Logo sits above the card.
+ *
+ * Usage:
+ *   <Route path="/login" element={<AuthLayout />} />   ← uses <Outlet />
+ */
 
-/*
-======================================================
-Authentication Layout Component
-
-Purpose:
-- Provides a common layout for all authentication pages.
-- Acts as a wrapper around pages such as:
-  • Login
-  • Signup
-  • Forgot Password
-  • Reset Password
-  • OTP Verification
-
-How It Works:
-1. React Router renders this layout when an
-   authentication route is matched.
-2. The layout displays a centered card container.
-3. The <Outlet /> renders the specific auth page
-   inside this card.
-
-Current Route Structure:
-
-<Route element={<AuthLayout />}>
-  <Route
-    path="/login"
-    element={<Login />}
-  />
-  <Route
-    path="/signup"
-    element={<Signup />}
-  />
-</Route>
-
-Example Rendering:
-
------------------------------------------
-|                                       |
-|         Gray Background               |
-|                                       |
-|       -----------------------         |
-|       |      School AI      |         |
-|       |                     |         |
-|       |     Login Form      |         |
-|       |                     |         |
-|       -----------------------         |
-|                                       |
------------------------------------------
-
-Benefits:
-- Avoids repeating the same layout on every
-  authentication page.
-- Maintains consistent branding and styling.
-- Makes authentication pages easier to maintain.
-- Supports nested routing through <Outlet />.
-======================================================
-*/
+import { Outlet } from 'react-router-dom';
+import { GraduationCap } from 'lucide-react';
 
 function AuthLayout() {
   return (
     /*
-    ======================================================
-    Main Page Container
-
-    Classes:
-    - flex               : Enables Flexbox layout
-    - min-h-screen       : Minimum height = viewport height
-    - items-center       : Centers content vertically
-    - justify-center     : Centers content horizontally
-    - bg-slate-100       : Light gray background
-    ======================================================
+      bg-[#EEF2F7]          → very light navy tint (brand-light)
+      bg-[radial-gradient…] → dot pattern using inline bg-image style
+      We use a style prop for the dot pattern since Tailwind v4 can't
+      build arbitrary background-image values reliably.
     */
-    <div className="flex min-h-screen items-center justify-center bg-slate-100">
-      {/* ==================================================
-          Authentication Card
+    <div
+      className="flex min-h-screen flex-col items-center justify-center px-4 py-10"
+      style={{
+        backgroundColor: '#EEF2F7',
+        backgroundImage: 'radial-gradient(circle, #1E3A5F1A 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+      }}
+    >
+      {/* Logo above card */}
+      <div className="mb-6 flex items-center gap-2.5">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-primary">
+          <GraduationCap size={20} className="text-white" />
+        </div>
+        <span className="text-xl font-bold text-brand-primary tracking-tight">
+          School ERP
+        </span>
+      </div>
 
-          Classes:
-          - w-full         : Takes full width on small screens
-          - max-w-md       : Maximum width of medium size
-          - rounded-2xl    : Large rounded corners
-          - bg-white       : White card background
-          - p-8            : Internal spacing
-          - shadow-xl      : Large shadow for elevation
-      ================================================== */}
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-        {/* ==================================================
-            Application Title / Branding
-            Displayed on all authentication screens
-        ================================================== */}
-        <h1 className="mb-8 text-center text-3xl font-bold text-brand-primary">
-          School AI
-        </h1>
-
-        {/* ==================================================
-            Nested Route Placeholder
-
-            React Router automatically renders the matched
-            child route here.
-
-            Examples:
-            - /login            -> <Login />
-            - /signup           -> <Signup />
-            - /forgot-password  -> <ForgotPassword />
-            - /otp              -> <OtpVerification />
-        ================================================== */}
+      {/* Card */}
+      <div className="w-full max-w-lg rounded-modal bg-surface p-8 shadow-soft">
         <Outlet />
       </div>
     </div>

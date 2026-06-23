@@ -9,6 +9,12 @@
   display: none; /* Chrome, Safari, Opera */
 }
 @theme {
+   --color-navy-900: #0f2444;
+   --color-navy-800: #1E3A5F;
+   --color-navy-700: #1e4976;
+   --color-navy-600: #1a5fa8;
+   --color-navy-text: #e2e8f0;
+
   /* =========================
      Brand Colors
   ========================= */
